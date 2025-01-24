@@ -101,23 +101,18 @@ class TitlesPage extends StatelessWidget {
                                                 alignment: Alignment.topRight,
                                                 child: Padding(
                                                   padding: EdgeInsets.all(8.w),
-                                                  child: CupertinoButton(
-                                                    onPressed: () {
-                                                    },
-                                                    padding: EdgeInsets.zero,
-                                                    child: Blur(
-                                                      borderRadius: BorderRadius.circular(26.r),
-                                                      blurColor: AppColors.darkGrey,
-                                                      overlay: Center(
-                                                        child: SvgPicture.asset('assets/icons/right_up_arrow.svg'),
-                                                      ),
-                                                      child:
-                                                      Container(
-                                                        width: 52.w,
-                                                        height: 52.w,
-                                                        decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                        ),
+                                                  child: Blur(
+                                                    borderRadius: BorderRadius.circular(26.r),
+                                                    blurColor: AppColors.darkGrey,
+                                                    overlay: Center(
+                                                      child: SvgPicture.asset('assets/icons/right_up_arrow.svg'),
+                                                    ),
+                                                    child:
+                                                    Container(
+                                                      width: 52.w,
+                                                      height: 52.w,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
                                                       ),
                                                     ),
                                                   ),
