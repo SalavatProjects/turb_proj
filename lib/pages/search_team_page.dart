@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:chaturbate/pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../ui_kit/app_colors.dart';
 import '../ui_kit/app_styles.dart';
@@ -15,10 +18,22 @@ class SearchTeamPage extends StatefulWidget {
 }
 
 class _SearchTeamPageState extends State<SearchTeamPage> {
+  File? _image;
   TextEditingController _nameTextEditingController = TextEditingController();
   TextEditingController _phoneTextEditingController = TextEditingController();
   TextEditingController _emailTextEditingController = TextEditingController();
   TextEditingController _bioTextEditingController = TextEditingController();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,29 +93,39 @@ class _SearchTeamPageState extends State<SearchTeamPage> {
                               height: 141.w,
                               child: Stack(
                                 children: [
-                                  Container(
-                                    width: 141.w,
-                                    height: 141.w,
-                                    padding: EdgeInsets.all(36.w),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(width: 1, color: AppColors.grey)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(72.r),
+                                    child: Container(
+                                      width: 141.w,
+                                      height: 141.w,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(width: 1, color: AppColors.grey),
+                                      ),
+                                      child: _image != null ? Image.file(_image!, fit: BoxFit.cover,)
+                                          :
+                                      Center(
+                                          child: SvgPicture.asset('assets/icons/person.svg')),
                                     ),
-                                    child: Center(
-                                        child: SvgPicture.asset('assets/icons/person.svg')),
                                   ),
                                   Align(
                                     alignment: Alignment.topRight,
-                                    child: Container(
-                                      width: 38.w,
-                                      height: 38.w,
-                                      padding: EdgeInsets.all(10.w),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppColors.white,
-                                      ),
-                                      child: Center(
-                                        child: SvgPicture.asset('assets/icons/plus.svg'),
+                                    child: CupertinoButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        _pickImage(ImageSource.gallery);
+                                      },
+                                      child: Container(
+                                        width: 38.w,
+                                        height: 38.w,
+                                        padding: EdgeInsets.all(10.w),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColors.white,
+                                        ),
+                                        child: Center(
+                                          child: SvgPicture.asset('assets/icons/plus.svg'),
+                                        ),
                                       ),
                                     ),
                                   )
@@ -145,7 +170,7 @@ class _SearchTeamPageState extends State<SearchTeamPage> {
                                   ),
                                   padding: EdgeInsets.fromLTRB(28.w, 17.w, 0, 0),
                                   child: TextFormField(
-                                    controller: _nameTextEditingController,
+                                    controller: _phoneTextEditingController,
                                     style: AppStyles.exoW500Black(16.sp),
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(

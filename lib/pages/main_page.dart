@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chaturbate/ui_kit/app_colors.dart';
 import 'package:chaturbate/ui_kit/app_styles.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -94,7 +95,9 @@ class MainPage extends StatelessWidget {
                   Spacer(),
                   CupertinoButton(
                     padding: EdgeInsets.zero,
-                      onPressed: () {}, 
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 54.w,
